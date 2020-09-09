@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.datawork.datahub.mapper.DatahubJobProjectMapper">
+    
+    <resultMap type="DatahubJobProject" id="DatahubJobProjectResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="description"    column="description"    />
+        <result property="userId"    column="user_id"    />
+        <result property="flag"    column="flag"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectDatahubJobProjectVo">
+        select id, name, description, user_id, flag, create_time, update_time from t_datahub_job_project
+    </sql>
+
+    <select id="selectDatahubJobProjectList" parameterType="DatahubJobProject" resultMap="DatahubJobProjectResult">
+        <include refid="selectDatahubJobProjectVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="flag != null "> and flag = #{flag}</if>
+        </where>
+    </select>
+    
+    <select id="selectDatahubJobProjectById" parameterType="Long" resultMap="DatahubJobProjectResult">
+        <include refid="selectDatahubJobProjectVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertDatahubJobProject" parameterType="DatahubJobProject" useGeneratedKeys="true" keyProperty="id">
+        insert into t_datahub_job_project
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="description != null">description,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="flag != null">flag,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="description != null">#{description},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="flag != null">#{flag},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDatahubJobProject" parameterType="DatahubJobProject">
+        update t_datahub_job_project
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="flag != null">flag = #{flag},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDatahubJobProjectById" parameterType="Long">
+        delete from t_datahub_job_project where id = #{id}
+    </delete>
+
+    <delete id="deleteDatahubJobProjectByIds" parameterType="String">
+        delete from t_datahub_job_project where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

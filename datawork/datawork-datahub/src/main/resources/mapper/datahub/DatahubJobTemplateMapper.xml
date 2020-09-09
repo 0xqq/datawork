@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.datawork.datahub.mapper.DatahubJobTemplateMapper">
+    
+    <resultMap type="DatahubJobTemplate" id="DatahubJobTemplateResult">
+        <result property="id"    column="id"    />
+        <result property="jobGroup"    column="job_group"    />
+        <result property="jobCron"    column="job_cron"    />
+        <result property="jobDesc"    column="job_desc"    />
+        <result property="addTime"    column="add_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="userId"    column="user_id"    />
+        <result property="alarmEmail"    column="alarm_email"    />
+        <result property="executorRouteStrategy"    column="executor_route_strategy"    />
+        <result property="executorHandler"    column="executor_handler"    />
+        <result property="executorParam"    column="executor_param"    />
+        <result property="executorBlockStrategy"    column="executor_block_strategy"    />
+        <result property="executorTimeout"    column="executor_timeout"    />
+        <result property="executorFailRetryCount"    column="executor_fail_retry_count"    />
+        <result property="glueType"    column="glue_type"    />
+        <result property="glueSource"    column="glue_source"    />
+        <result property="glueRemark"    column="glue_remark"    />
+        <result property="glueUpdatetime"    column="glue_updatetime"    />
+        <result property="childJobid"    column="child_jobid"    />
+        <result property="triggerLastTime"    column="trigger_last_time"    />
+        <result property="triggerNextTime"    column="trigger_next_time"    />
+        <result property="jobJson"    column="job_json"    />
+        <result property="jvmParam"    column="jvm_param"    />
+        <result property="projectId"    column="project_id"    />
+    </resultMap>
+
+    <sql id="selectDatahubJobTemplateVo">
+        select id, job_group, job_cron, job_desc, add_time, update_time, user_id, alarm_email, executor_route_strategy, executor_handler, executor_param, executor_block_strategy, executor_timeout, executor_fail_retry_count, glue_type, glue_source, glue_remark, glue_updatetime, child_jobid, trigger_last_time, trigger_next_time, job_json, jvm_param, project_id from t_datahub_job_template
+    </sql>
+
+    <select id="selectDatahubJobTemplateList" parameterType="DatahubJobTemplate" resultMap="DatahubJobTemplateResult">
+        <include refid="selectDatahubJobTemplateVo"/>
+        <where>  
+        </where>
+    </select>
+    
+    <select id="selectDatahubJobTemplateById" parameterType="Long" resultMap="DatahubJobTemplateResult">
+        <include refid="selectDatahubJobTemplateVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertDatahubJobTemplate" parameterType="DatahubJobTemplate" useGeneratedKeys="true" keyProperty="id">
+        insert into t_datahub_job_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="jobGroup != null">job_group,</if>
+            <if test="jobCron != null and jobCron != ''">job_cron,</if>
+            <if test="jobDesc != null and jobDesc != ''">job_desc,</if>
+            <if test="addTime != null">add_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="alarmEmail != null">alarm_email,</if>
+            <if test="executorRouteStrategy != null">executor_route_strategy,</if>
+            <if test="executorHandler != null">executor_handler,</if>
+            <if test="executorParam != null">executor_param,</if>
+            <if test="executorBlockStrategy != null">executor_block_strategy,</if>
+            <if test="executorTimeout != null">executor_timeout,</if>
+            <if test="executorFailRetryCount != null">executor_fail_retry_count,</if>
+            <if test="glueType != null and glueType != ''">glue_type,</if>
+            <if test="glueSource != null">glue_source,</if>
+            <if test="glueRemark != null">glue_remark,</if>
+            <if test="glueUpdatetime != null">glue_updatetime,</if>
+            <if test="childJobid != null">child_jobid,</if>
+            <if test="triggerLastTime != null">trigger_last_time,</if>
+            <if test="triggerNextTime != null">trigger_next_time,</if>
+            <if test="jobJson != null">job_json,</if>
+            <if test="jvmParam != null">jvm_param,</if>
+            <if test="projectId != null">project_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="jobGroup != null">#{jobGroup},</if>
+            <if test="jobCron != null and jobCron != ''">#{jobCron},</if>
+            <if test="jobDesc != null and jobDesc != ''">#{jobDesc},</if>
+            <if test="addTime != null">#{addTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="alarmEmail != null">#{alarmEmail},</if>
+            <if test="executorRouteStrategy != null">#{executorRouteStrategy},</if>
+            <if test="executorHandler != null">#{executorHandler},</if>
+            <if test="executorParam != null">#{executorParam},</if>
+            <if test="executorBlockStrategy != null">#{executorBlockStrategy},</if>
+            <if test="executorTimeout != null">#{executorTimeout},</if>
+            <if test="executorFailRetryCount != null">#{executorFailRetryCount},</if>
+            <if test="glueType != null and glueType != ''">#{glueType},</if>
+            <if test="glueSource != null">#{glueSource},</if>
+            <if test="glueRemark != null">#{glueRemark},</if>
+            <if test="glueUpdatetime != null">#{glueUpdatetime},</if>
+            <if test="childJobid != null">#{childJobid},</if>
+            <if test="triggerLastTime != null">#{triggerLastTime},</if>
+            <if test="triggerNextTime != null">#{triggerNextTime},</if>
+            <if test="jobJson != null">#{jobJson},</if>
+            <if test="jvmParam != null">#{jvmParam},</if>
+            <if test="projectId != null">#{projectId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDatahubJobTemplate" parameterType="DatahubJobTemplate">
+        update t_datahub_job_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="jobGroup != null">job_group = #{jobGroup},</if>
+            <if test="jobCron != null and jobCron != ''">job_cron = #{jobCron},</if>
+            <if test="jobDesc != null and jobDesc != ''">job_desc = #{jobDesc},</if>
+            <if test="addTime != null">add_time = #{addTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="alarmEmail != null">alarm_email = #{alarmEmail},</if>
+            <if test="executorRouteStrategy != null">executor_route_strategy = #{executorRouteStrategy},</if>
+            <if test="executorHandler != null">executor_handler = #{executorHandler},</if>
+            <if test="executorParam != null">executor_param = #{executorParam},</if>
+            <if test="executorBlockStrategy != null">executor_block_strategy = #{executorBlockStrategy},</if>
+            <if test="executorTimeout != null">executor_timeout = #{executorTimeout},</if>
+            <if test="executorFailRetryCount != null">executor_fail_retry_count = #{executorFailRetryCount},</if>
+            <if test="glueType != null and glueType != ''">glue_type = #{glueType},</if>
+            <if test="glueSource != null">glue_source = #{glueSource},</if>
+            <if test="glueRemark != null">glue_remark = #{glueRemark},</if>
+            <if test="glueUpdatetime != null">glue_updatetime = #{glueUpdatetime},</if>
+            <if test="childJobid != null">child_jobid = #{childJobid},</if>
+            <if test="triggerLastTime != null">trigger_last_time = #{triggerLastTime},</if>
+            <if test="triggerNextTime != null">trigger_next_time = #{triggerNextTime},</if>
+            <if test="jobJson != null">job_json = #{jobJson},</if>
+            <if test="jvmParam != null">jvm_param = #{jvmParam},</if>
+            <if test="projectId != null">project_id = #{projectId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDatahubJobTemplateById" parameterType="Long">
+        delete from t_datahub_job_template where id = #{id}
+    </delete>
+
+    <delete id="deleteDatahubJobTemplateByIds" parameterType="String">
+        delete from t_datahub_job_template where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

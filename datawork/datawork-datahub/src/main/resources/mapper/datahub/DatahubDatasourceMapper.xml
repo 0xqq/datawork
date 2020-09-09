@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.datawork.datahub.mapper.DatahubDatasourceMapper">
+    
+    <resultMap type="DatahubDatasource" id="DatahubDatasourceResult">
+        <result property="id"    column="id"    />
+        <result property="datasourceName"    column="datasource_name"    />
+        <result property="datasourceGroup"    column="datasource_group"    />
+        <result property="databaseName"    column="database_name"    />
+        <result property="jdbcUsername"    column="jdbc_username"    />
+        <result property="jdbcPassword"    column="jdbc_password"    />
+        <result property="jdbcUrl"    column="jdbc_url"    />
+        <result property="jdbcDriverClass"    column="jdbc_driver_class"    />
+        <result property="zkAdress"    column="zk_adress"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateDate"    column="update_date"    />
+        <result property="comments"    column="comments"    />
+    </resultMap>
+
+    <sql id="selectDatahubDatasourceVo">
+        select id, datasource_name, datasource_group, database_name, jdbc_username, jdbc_password, jdbc_url, jdbc_driver_class, zk_adress, status, create_by, create_date, update_by, update_date, comments from t_datahub_datasource
+    </sql>
+
+    <select id="selectDatahubDatasourceList" parameterType="DatahubDatasource" resultMap="DatahubDatasourceResult">
+        <include refid="selectDatahubDatasourceVo"/>
+        <where>  
+            <if test="datasourceName != null  and datasourceName != ''"> and datasource_name like concat('%', #{datasourceName}, '%')</if>
+            <if test="databaseName != null  and databaseName != ''"> and database_name like concat('%', #{databaseName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectDatahubDatasourceById" parameterType="Long" resultMap="DatahubDatasourceResult">
+        <include refid="selectDatahubDatasourceVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertDatahubDatasource" parameterType="DatahubDatasource" useGeneratedKeys="true" keyProperty="id">
+        insert into t_datahub_datasource
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="datasourceName != null and datasourceName != ''">datasource_name,</if>
+            <if test="datasourceGroup != null">datasource_group,</if>
+            <if test="databaseName != null">database_name,</if>
+            <if test="jdbcUsername != null">jdbc_username,</if>
+            <if test="jdbcPassword != null">jdbc_password,</if>
+            <if test="jdbcUrl != null and jdbcUrl != ''">jdbc_url,</if>
+            <if test="jdbcDriverClass != null">jdbc_driver_class,</if>
+            <if test="zkAdress != null">zk_adress,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateDate != null">update_date,</if>
+            <if test="comments != null">comments,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="datasourceName != null and datasourceName != ''">#{datasourceName},</if>
+            <if test="datasourceGroup != null">#{datasourceGroup},</if>
+            <if test="databaseName != null">#{databaseName},</if>
+            <if test="jdbcUsername != null">#{jdbcUsername},</if>
+            <if test="jdbcPassword != null">#{jdbcPassword},</if>
+            <if test="jdbcUrl != null and jdbcUrl != ''">#{jdbcUrl},</if>
+            <if test="jdbcDriverClass != null">#{jdbcDriverClass},</if>
+            <if test="zkAdress != null">#{zkAdress},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createDate != null">#{createDate},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateDate != null">#{updateDate},</if>
+            <if test="comments != null">#{comments},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDatahubDatasource" parameterType="DatahubDatasource">
+        update t_datahub_datasource
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="datasourceName != null and datasourceName != ''">datasource_name = #{datasourceName},</if>
+            <if test="datasourceGroup != null">datasource_group = #{datasourceGroup},</if>
+            <if test="databaseName != null">database_name = #{databaseName},</if>
+            <if test="jdbcUsername != null">jdbc_username = #{jdbcUsername},</if>
+            <if test="jdbcPassword != null">jdbc_password = #{jdbcPassword},</if>
+            <if test="jdbcUrl != null and jdbcUrl != ''">jdbc_url = #{jdbcUrl},</if>
+            <if test="jdbcDriverClass != null">jdbc_driver_class = #{jdbcDriverClass},</if>
+            <if test="zkAdress != null">zk_adress = #{zkAdress},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="comments != null">comments = #{comments},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDatahubDatasourceById" parameterType="Long">
+        delete from t_datahub_datasource where id = #{id}
+    </delete>
+
+    <delete id="deleteDatahubDatasourceByIds" parameterType="String">
+        delete from t_datahub_datasource where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

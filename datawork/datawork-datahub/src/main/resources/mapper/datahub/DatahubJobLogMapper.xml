@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.datawork.datahub.mapper.DatahubJobLogMapper">
+    
+    <resultMap type="DatahubJobLog" id="DatahubJobLogResult">
+        <result property="id"    column="id"    />
+        <result property="jobGroup"    column="job_group"    />
+        <result property="jobId"    column="job_id"    />
+        <result property="jobDesc"    column="job_desc"    />
+        <result property="executorAddress"    column="executor_address"    />
+        <result property="executorHandler"    column="executor_handler"    />
+        <result property="executorParam"    column="executor_param"    />
+        <result property="executorShardingParam"    column="executor_sharding_param"    />
+        <result property="executorFailRetryCount"    column="executor_fail_retry_count"    />
+        <result property="triggerTime"    column="trigger_time"    />
+        <result property="triggerCode"    column="trigger_code"    />
+        <result property="triggerMsg"    column="trigger_msg"    />
+        <result property="handleTime"    column="handle_time"    />
+        <result property="handleCode"    column="handle_code"    />
+        <result property="handleMsg"    column="handle_msg"    />
+        <result property="alarmStatus"    column="alarm_status"    />
+        <result property="processId"    column="process_id"    />
+        <result property="maxId"    column="max_id"    />
+    </resultMap>
+
+    <sql id="selectDatahubJobLogVo">
+        select id, job_group, job_id, job_desc, executor_address, executor_handler, executor_param, executor_sharding_param, executor_fail_retry_count, trigger_time, trigger_code, trigger_msg, handle_time, handle_code, handle_msg, alarm_status, process_id, max_id from t_datahub_job_log
+    </sql>
+
+    <select id="selectDatahubJobLogList" parameterType="DatahubJobLog" resultMap="DatahubJobLogResult">
+        <include refid="selectDatahubJobLogVo"/>
+        <where>  
+            <if test="jobGroup != null "> and job_group = #{jobGroup}</if>
+            <if test="jobId != null "> and job_id = #{jobId}</if>
+            <if test="jobDesc != null  and jobDesc != ''"> and job_desc = #{jobDesc}</if>
+            <if test="executorAddress != null  and executorAddress != ''"> and executor_address = #{executorAddress}</if>
+            <if test="executorHandler != null  and executorHandler != ''"> and executor_handler = #{executorHandler}</if>
+            <if test="executorParam != null  and executorParam != ''"> and executor_param = #{executorParam}</if>
+            <if test="executorShardingParam != null  and executorShardingParam != ''"> and executor_sharding_param = #{executorShardingParam}</if>
+            <if test="executorFailRetryCount != null "> and executor_fail_retry_count = #{executorFailRetryCount}</if>
+            <if test="triggerTime != null "> and trigger_time = #{triggerTime}</if>
+            <if test="triggerCode != null "> and trigger_code = #{triggerCode}</if>
+            <if test="triggerMsg != null  and triggerMsg != ''"> and trigger_msg = #{triggerMsg}</if>
+            <if test="handleTime != null "> and handle_time = #{handleTime}</if>
+            <if test="handleCode != null "> and handle_code = #{handleCode}</if>
+            <if test="handleMsg != null  and handleMsg != ''"> and handle_msg = #{handleMsg}</if>
+            <if test="alarmStatus != null "> and alarm_status = #{alarmStatus}</if>
+            <if test="processId != null  and processId != ''"> and process_id = #{processId}</if>
+            <if test="maxId != null "> and max_id = #{maxId}</if>
+        </where>
+    </select>
+    
+    <select id="selectDatahubJobLogById" parameterType="Long" resultMap="DatahubJobLogResult">
+        <include refid="selectDatahubJobLogVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertDatahubJobLog" parameterType="DatahubJobLog" useGeneratedKeys="true" keyProperty="id">
+        insert into t_datahub_job_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="jobGroup != null">job_group,</if>
+            <if test="jobId != null">job_id,</if>
+            <if test="jobDesc != null">job_desc,</if>
+            <if test="executorAddress != null">executor_address,</if>
+            <if test="executorHandler != null">executor_handler,</if>
+            <if test="executorParam != null">executor_param,</if>
+            <if test="executorShardingParam != null">executor_sharding_param,</if>
+            <if test="executorFailRetryCount != null">executor_fail_retry_count,</if>
+            <if test="triggerTime != null">trigger_time,</if>
+            <if test="triggerCode != null">trigger_code,</if>
+            <if test="triggerMsg != null">trigger_msg,</if>
+            <if test="handleTime != null">handle_time,</if>
+            <if test="handleCode != null">handle_code,</if>
+            <if test="handleMsg != null">handle_msg,</if>
+            <if test="alarmStatus != null">alarm_status,</if>
+            <if test="processId != null">process_id,</if>
+            <if test="maxId != null">max_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="jobGroup != null">#{jobGroup},</if>
+            <if test="jobId != null">#{jobId},</if>
+            <if test="jobDesc != null">#{jobDesc},</if>
+            <if test="executorAddress != null">#{executorAddress},</if>
+            <if test="executorHandler != null">#{executorHandler},</if>
+            <if test="executorParam != null">#{executorParam},</if>
+            <if test="executorShardingParam != null">#{executorShardingParam},</if>
+            <if test="executorFailRetryCount != null">#{executorFailRetryCount},</if>
+            <if test="triggerTime != null">#{triggerTime},</if>
+            <if test="triggerCode != null">#{triggerCode},</if>
+            <if test="triggerMsg != null">#{triggerMsg},</if>
+            <if test="handleTime != null">#{handleTime},</if>
+            <if test="handleCode != null">#{handleCode},</if>
+            <if test="handleMsg != null">#{handleMsg},</if>
+            <if test="alarmStatus != null">#{alarmStatus},</if>
+            <if test="processId != null">#{processId},</if>
+            <if test="maxId != null">#{maxId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDatahubJobLog" parameterType="DatahubJobLog">
+        update t_datahub_job_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="jobGroup != null">job_group = #{jobGroup},</if>
+            <if test="jobId != null">job_id = #{jobId},</if>
+            <if test="jobDesc != null">job_desc = #{jobDesc},</if>
+            <if test="executorAddress != null">executor_address = #{executorAddress},</if>
+            <if test="executorHandler != null">executor_handler = #{executorHandler},</if>
+            <if test="executorParam != null">executor_param = #{executorParam},</if>
+            <if test="executorShardingParam != null">executor_sharding_param = #{executorShardingParam},</if>
+            <if test="executorFailRetryCount != null">executor_fail_retry_count = #{executorFailRetryCount},</if>
+            <if test="triggerTime != null">trigger_time = #{triggerTime},</if>
+            <if test="triggerCode != null">trigger_code = #{triggerCode},</if>
+            <if test="triggerMsg != null">trigger_msg = #{triggerMsg},</if>
+            <if test="handleTime != null">handle_time = #{handleTime},</if>
+            <if test="handleCode != null">handle_code = #{handleCode},</if>
+            <if test="handleMsg != null">handle_msg = #{handleMsg},</if>
+            <if test="alarmStatus != null">alarm_status = #{alarmStatus},</if>
+            <if test="processId != null">process_id = #{processId},</if>
+            <if test="maxId != null">max_id = #{maxId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDatahubJobLogById" parameterType="Long">
+        delete from t_datahub_job_log where id = #{id}
+    </delete>
+
+    <delete id="deleteDatahubJobLogByIds" parameterType="String">
+        delete from t_datahub_job_log where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
