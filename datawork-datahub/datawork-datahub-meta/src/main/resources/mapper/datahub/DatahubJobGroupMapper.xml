@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.datawork.datahub.mapper.DatahubJobGroupMapper">
+    
+    <resultMap type="DatahubJobGroup" id="DatahubJobGroupResult">
+        <result property="id"    column="id"    />
+        <result property="appName"    column="app_name"    />
+        <result property="title"    column="title"    />
+        <result property="order"    column="order"    />
+        <result property="addressType"    column="address_type"    />
+        <result property="addressList"    column="address_list"    />
+    </resultMap>
+
+    <sql id="selectDatahubJobGroupVo">
+        select id, app_name, title, order, address_type, address_list from t_datahub_job_group
+    </sql>
+
+    <select id="selectDatahubJobGroupList" parameterType="DatahubJobGroup" resultMap="DatahubJobGroupResult">
+        <include refid="selectDatahubJobGroupVo"/>
+        <where>  
+            <if test="appName != null  and appName != ''"> and app_name like concat('%', #{appName}, '%')</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+        </where>
+    </select>
+    
+    <select id="selectDatahubJobGroupById" parameterType="Long" resultMap="DatahubJobGroupResult">
+        <include refid="selectDatahubJobGroupVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertDatahubJobGroup" parameterType="DatahubJobGroup" useGeneratedKeys="true" keyProperty="id">
+        insert into t_datahub_job_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="appName != null and appName != ''">app_name,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="order != null">order,</if>
+            <if test="addressType != null">address_type,</if>
+            <if test="addressList != null">address_list,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="appName != null and appName != ''">#{appName},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="order != null">#{order},</if>
+            <if test="addressType != null">#{addressType},</if>
+            <if test="addressList != null">#{addressList},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDatahubJobGroup" parameterType="DatahubJobGroup">
+        update t_datahub_job_group
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="appName != null and appName != ''">app_name = #{appName},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="order != null">order = #{order},</if>
+            <if test="addressType != null">address_type = #{addressType},</if>
+            <if test="addressList != null">address_list = #{addressList},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDatahubJobGroupById" parameterType="Long">
+        delete from t_datahub_job_group where id = #{id}
+    </delete>
+
+    <delete id="deleteDatahubJobGroupByIds" parameterType="String">
+        delete from t_datahub_job_group where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

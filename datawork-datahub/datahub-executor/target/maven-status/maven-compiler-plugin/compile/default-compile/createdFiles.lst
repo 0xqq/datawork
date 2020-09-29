@@ -1,0 +1,9 @@
+com\wugui\datax\executor\service\logparse\AnalysisStatistics.class
+com\wugui\datax\executor\util\SystemUtils.class
+com\wugui\datax\executor\service\jobhandler\DataXConstant.class
+com\wugui\datax\executor\service\jobhandler\ExecutorJobHandler.class
+com\wugui\datax\executor\DataXExecutorApplication.class
+com\wugui\datax\executor\service\logparse\LogStatistics.class
+com\wugui\datax\executor\core\config\DataXConfig.class
+com\wugui\datax\executor\service\jobhandler\KillJobHandler.class
+com\wugui\datax\executor\service\command\BuildCommand.class

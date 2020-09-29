@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>dmp-datatask</artifactId>
+        <groupId>top.dataworks</groupId>
+        <version>2.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>dmp-datatask-register-zookeeper</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>top.dataworks</groupId>
+            <artifactId>dmp-datatask-integration-zookeeper</artifactId>
+            <version>${dmp-datatask-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>top.dataworks</groupId>
+            <artifactId>dmp-datatask-mapper-mybatis</artifactId>
+            <version>${dmp-datatask-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.3.15.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <version>1.5.11.RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

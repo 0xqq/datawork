@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.datawork.metadata.mapper.MetadataTableMapper">
+    
+    <resultMap type="MetadataTable" id="MetadataTableResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="comments"    column="comments"    />
+        <result property="databaseId"    column="database_id"    />
+        <result property="parentTable"    column="parent_table"    />
+        <result property="parentTableFk"    column="parent_table_fk"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="databasename"    column="databaseName"    />
+    </resultMap>
+
+    <sql id="selectMetadataTableVo">
+        select id, name, comments, database_id, parent_table, parent_table_fk, del_flag, databaseName from metadata_table
+    </sql>
+
+    <select id="selectMetadataTableList" parameterType="MetadataTable" resultMap="MetadataTableResult">
+        <include refid="selectMetadataTableVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="comments != null  and comments != ''"> and comments = #{comments}</if>
+        </where>
+    </select>
+    
+    <select id="selectMetadataTableById" parameterType="String" resultMap="MetadataTableResult">
+        <include refid="selectMetadataTableVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMetadataTable" parameterType="MetadataTable">
+        insert into metadata_table
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="comments != null">comments,</if>
+            <if test="databaseId != null">database_id,</if>
+            <if test="parentTable != null">parent_table,</if>
+            <if test="parentTableFk != null">parent_table_fk,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+            <if test="databasename != null">databaseName,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="comments != null">#{comments},</if>
+            <if test="databaseId != null">#{databaseId},</if>
+            <if test="parentTable != null">#{parentTable},</if>
+            <if test="parentTableFk != null">#{parentTableFk},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+            <if test="databasename != null">#{databasename},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMetadataTable" parameterType="MetadataTable">
+        update metadata_table
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="comments != null">comments = #{comments},</if>
+            <if test="databaseId != null">database_id = #{databaseId},</if>
+            <if test="parentTable != null">parent_table = #{parentTable},</if>
+            <if test="parentTableFk != null">parent_table_fk = #{parentTableFk},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="databasename != null">databaseName = #{databasename},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMetadataTableById" parameterType="String">
+        delete from metadata_table where id = #{id}
+    </delete>
+
+    <delete id="deleteMetadataTableByIds" parameterType="String">
+        delete from metadata_table where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

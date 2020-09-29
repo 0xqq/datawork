@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.datawork.datahub.mapper.TDatahubMappingMapper">
+    
+    <resultMap type="TDatahubMapping" id="TDatahubMappingResult">
+        <result property="id"    column="id"    />
+        <result property="readerDatasource"    column="reader_datasource"    />
+        <result property="readerDatabase"    column="reader_database"    />
+        <result property="readerQuerySql"    column="reader_query_sql"    />
+        <result property="readerTable"    column="reader_table"    />
+        <result property="readerColumn"    column="reader_column"    />
+        <result property="readerWhere"    column="reader_where"    />
+        <result property="readerSplitpk"    column="reader_splitpk"    />
+        <result property="writerDatasource"    column="writer_datasource"    />
+        <result property="writerDatabase"    column="writer_database"    />
+        <result property="writerTable"    column="writer_table"    />
+        <result property="writerColumn"    column="writer_column"    />
+        <result property="writerPreSql"    column="writer_pre_sql"    />
+        <result property="writerPostSql"    column="writer_post_sql"    />
+        <result property="writerSession"    column="writer_session"    />
+        <result property="writeMode"    column="write_mode"    />
+        <result property="batchsize"    column="batchSize"    />
+        <result property="vars"    column="vars"    />
+        <result property="encoding"    column="encoding"    />
+    </resultMap>
+
+    <sql id="selectTDatahubMappingVo">
+        select id, reader_datasource, reader_database, reader_query_sql, reader_table, reader_column, reader_where, reader_splitpk, writer_datasource, writer_database, writer_table, writer_column, writer_pre_sql, writer_post_sql, writer_session, write_mode, batchSize, vars, encoding from t_datahub_mapping
+    </sql>
+
+    <select id="selectTDatahubMappingList" parameterType="TDatahubMapping" resultMap="TDatahubMappingResult">
+        <include refid="selectTDatahubMappingVo"/>
+        <where>  
+            <if test="readerDatasource != null  and readerDatasource != ''"> and reader_datasource = #{readerDatasource}</if>
+            <if test="readerDatabase != null  and readerDatabase != ''"> and reader_database = #{readerDatabase}</if>
+            <if test="readerQuerySql != null  and readerQuerySql != ''"> and reader_query_sql = #{readerQuerySql}</if>
+            <if test="readerTable != null  and readerTable != ''"> and reader_table = #{readerTable}</if>
+            <if test="readerColumn != null  and readerColumn != ''"> and reader_column = #{readerColumn}</if>
+            <if test="readerWhere != null  and readerWhere != ''"> and reader_where = #{readerWhere}</if>
+            <if test="readerSplitpk != null  and readerSplitpk != ''"> and reader_splitpk = #{readerSplitpk}</if>
+            <if test="writerDatasource != null  and writerDatasource != ''"> and writer_datasource = #{writerDatasource}</if>
+            <if test="writerDatabase != null  and writerDatabase != ''"> and writer_database = #{writerDatabase}</if>
+            <if test="writerTable != null  and writerTable != ''"> and writer_table = #{writerTable}</if>
+            <if test="writerColumn != null  and writerColumn != ''"> and writer_column = #{writerColumn}</if>
+            <if test="writerPreSql != null  and writerPreSql != ''"> and writer_pre_sql = #{writerPreSql}</if>
+            <if test="writerPostSql != null  and writerPostSql != ''"> and writer_post_sql = #{writerPostSql}</if>
+            <if test="writerSession != null  and writerSession != ''"> and writer_session = #{writerSession}</if>
+            <if test="writeMode != null  and writeMode != ''"> and write_mode = #{writeMode}</if>
+            <if test="batchsize != null  and batchsize != ''"> and batchSize = #{batchsize}</if>
+            <if test="vars != null  and vars != ''"> and vars = #{vars}</if>
+            <if test="encoding != null  and encoding != ''"> and encoding = #{encoding}</if>
+        </where>
+    </select>
+    
+    <select id="selectTDatahubMappingById" parameterType="Long" resultMap="TDatahubMappingResult">
+        <include refid="selectTDatahubMappingVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTDatahubMapping" parameterType="TDatahubMapping" useGeneratedKeys="true" keyProperty="id">
+        insert into t_datahub_mapping
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="readerDatasource != null">reader_datasource,</if>
+            <if test="readerDatabase != null">reader_database,</if>
+            <if test="readerQuerySql != null">reader_query_sql,</if>
+            <if test="readerTable != null">reader_table,</if>
+            <if test="readerColumn != null">reader_column,</if>
+            <if test="readerWhere != null">reader_where,</if>
+            <if test="readerSplitpk != null">reader_splitpk,</if>
+            <if test="writerDatasource != null">writer_datasource,</if>
+            <if test="writerDatabase != null">writer_database,</if>
+            <if test="writerTable != null">writer_table,</if>
+            <if test="writerColumn != null">writer_column,</if>
+            <if test="writerPreSql != null">writer_pre_sql,</if>
+            <if test="writerPostSql != null">writer_post_sql,</if>
+            <if test="writerSession != null">writer_session,</if>
+            <if test="writeMode != null">write_mode,</if>
+            <if test="batchsize != null">batchSize,</if>
+            <if test="vars != null">vars,</if>
+            <if test="encoding != null">encoding,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="readerDatasource != null">#{readerDatasource},</if>
+            <if test="readerDatabase != null">#{readerDatabase},</if>
+            <if test="readerQuerySql != null">#{readerQuerySql},</if>
+            <if test="readerTable != null">#{readerTable},</if>
+            <if test="readerColumn != null">#{readerColumn},</if>
+            <if test="readerWhere != null">#{readerWhere},</if>
+            <if test="readerSplitpk != null">#{readerSplitpk},</if>
+            <if test="writerDatasource != null">#{writerDatasource},</if>
+            <if test="writerDatabase != null">#{writerDatabase},</if>
+            <if test="writerTable != null">#{writerTable},</if>
+            <if test="writerColumn != null">#{writerColumn},</if>
+            <if test="writerPreSql != null">#{writerPreSql},</if>
+            <if test="writerPostSql != null">#{writerPostSql},</if>
+            <if test="writerSession != null">#{writerSession},</if>
+            <if test="writeMode != null">#{writeMode},</if>
+            <if test="batchsize != null">#{batchsize},</if>
+            <if test="vars != null">#{vars},</if>
+            <if test="encoding != null">#{encoding},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTDatahubMapping" parameterType="TDatahubMapping">
+        update t_datahub_mapping
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="readerDatasource != null">reader_datasource = #{readerDatasource},</if>
+            <if test="readerDatabase != null">reader_database = #{readerDatabase},</if>
+            <if test="readerQuerySql != null">reader_query_sql = #{readerQuerySql},</if>
+            <if test="readerTable != null">reader_table = #{readerTable},</if>
+            <if test="readerColumn != null">reader_column = #{readerColumn},</if>
+            <if test="readerWhere != null">reader_where = #{readerWhere},</if>
+            <if test="readerSplitpk != null">reader_splitpk = #{readerSplitpk},</if>
+            <if test="writerDatasource != null">writer_datasource = #{writerDatasource},</if>
+            <if test="writerDatabase != null">writer_database = #{writerDatabase},</if>
+            <if test="writerTable != null">writer_table = #{writerTable},</if>
+            <if test="writerColumn != null">writer_column = #{writerColumn},</if>
+            <if test="writerPreSql != null">writer_pre_sql = #{writerPreSql},</if>
+            <if test="writerPostSql != null">writer_post_sql = #{writerPostSql},</if>
+            <if test="writerSession != null">writer_session = #{writerSession},</if>
+            <if test="writeMode != null">write_mode = #{writeMode},</if>
+            <if test="batchsize != null">batchSize = #{batchsize},</if>
+            <if test="vars != null">vars = #{vars},</if>
+            <if test="encoding != null">encoding = #{encoding},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTDatahubMappingById" parameterType="Long">
+        delete from t_datahub_mapping where id = #{id}
+    </delete>
+
+    <delete id="deleteTDatahubMappingByIds" parameterType="String">
+        delete from t_datahub_mapping where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

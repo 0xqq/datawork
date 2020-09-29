@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.datawork.metadata.mapper.MetadataTableColumnMapper">
+    
+    <resultMap type="MetadataTableColumn" id="MetadataTableColumnResult">
+        <result property="id"    column="id"    />
+        <result property="genTableId"    column="gen_table_id"    />
+        <result property="name"    column="name"    />
+        <result property="comments"    column="comments"    />
+        <result property="jdbcType"    column="jdbc_type"    />
+        <result property="isPk"    column="is_pk"    />
+        <result property="isNull"    column="is_null"    />
+        <result property="dictType"    column="dict_type"    />
+        <result property="settings"    column="settings"    />
+        <result property="sort"    column="sort"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="tableName"    column="table_name"    />
+    </resultMap>
+
+    <sql id="selectMetadataTableColumnVo">
+        select id, gen_table_id, name, comments, jdbc_type, is_pk, is_null, dict_type, settings, sort, remarks, del_flag, table_name from metadata_table_column
+    </sql>
+
+    <select id="selectMetadataTableColumnList" parameterType="MetadataTableColumn" resultMap="MetadataTableColumnResult">
+        <include refid="selectMetadataTableColumnVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="tableName != null  and tableName != ''"> and table_name like concat('%', #{tableName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectMetadataTableColumnById" parameterType="String" resultMap="MetadataTableColumnResult">
+        <include refid="selectMetadataTableColumnVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMetadataTableColumn" parameterType="MetadataTableColumn">
+        insert into metadata_table_column
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="genTableId != null">gen_table_id,</if>
+            <if test="name != null">name,</if>
+            <if test="comments != null">comments,</if>
+            <if test="jdbcType != null">jdbc_type,</if>
+            <if test="isPk != null">is_pk,</if>
+            <if test="isNull != null">is_null,</if>
+            <if test="dictType != null">dict_type,</if>
+            <if test="settings != null">settings,</if>
+            <if test="sort != null">sort,</if>
+            <if test="remarks != null">remarks,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+            <if test="tableName != null">table_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="genTableId != null">#{genTableId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="comments != null">#{comments},</if>
+            <if test="jdbcType != null">#{jdbcType},</if>
+            <if test="isPk != null">#{isPk},</if>
+            <if test="isNull != null">#{isNull},</if>
+            <if test="dictType != null">#{dictType},</if>
+            <if test="settings != null">#{settings},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="remarks != null">#{remarks},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+            <if test="tableName != null">#{tableName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMetadataTableColumn" parameterType="MetadataTableColumn">
+        update metadata_table_column
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="genTableId != null">gen_table_id = #{genTableId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="comments != null">comments = #{comments},</if>
+            <if test="jdbcType != null">jdbc_type = #{jdbcType},</if>
+            <if test="isPk != null">is_pk = #{isPk},</if>
+            <if test="isNull != null">is_null = #{isNull},</if>
+            <if test="dictType != null">dict_type = #{dictType},</if>
+            <if test="settings != null">settings = #{settings},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="tableName != null">table_name = #{tableName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMetadataTableColumnById" parameterType="String">
+        delete from metadata_table_column where id = #{id}
+    </delete>
+
+    <delete id="deleteMetadataTableColumnByIds" parameterType="String">
+        delete from metadata_table_column where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

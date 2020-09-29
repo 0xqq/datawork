@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.datawork.datahub.mapper.DatahubJobInstanceMapper">
+    
+    <resultMap type="DatahubJobInstance" id="DatahubJobInstanceResult">
+        <result property="id"    column="id"    />
+        <result property="flowId"    column="flow_Id"    />
+        <result property="nodeId"    column="node_Id"    />
+        <result property="dateId"    column="date_Id"    />
+        <result property="batchId"    column="batch_Id"    />
+        <result property="vars"    column="vars"    />
+        <result property="code"    column="code"    />
+        <result property="sourcedb"    column="sourceDb"    />
+        <result property="sourcetable"    column="sourceTable"    />
+        <result property="sourcecols"    column="sourceCols"    />
+        <result property="targetdb"    column="targetDb"    />
+        <result property="targettable"    column="targetTable"    />
+        <result property="targetcols"    column="targetCols"    />
+        <result property="logUrl"    column="log_url"    />
+        <result property="status"    column="status"    />
+        <result property="starttime"    column="startTime"    />
+        <result property="endtime"    column="endTime"    />
+        <result property="totalCount"    column="total_count"    />
+        <result property="errorCount"    column="error_count"    />
+    </resultMap>
+
+    <sql id="selectDatahubJobInstanceVo">
+        select id, flow_Id, node_Id, date_Id, batch_Id, vars, code, sourceDb, sourceTable, sourceCols, targetDb, targetTable, targetCols, log_url, status, startTime, endTime, total_count, error_count from t_datahub_job_instance
+    </sql>
+
+    <select id="selectDatahubJobInstanceList" parameterType="DatahubJobInstance" resultMap="DatahubJobInstanceResult">
+        <include refid="selectDatahubJobInstanceVo"/>
+        <where>  
+            <if test="batchId != null  and batchId != ''"> and batch_Id = #{batchId}</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="sourcetable != null  and sourcetable != ''"> and sourceTable = #{sourcetable}</if>
+            <if test="targetdb != null  and targetdb != ''"> and targetDb = #{targetdb}</if>
+        </where>
+    </select>
+    
+    <select id="selectDatahubJobInstanceById" parameterType="Long" resultMap="DatahubJobInstanceResult">
+        <include refid="selectDatahubJobInstanceVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertDatahubJobInstance" parameterType="DatahubJobInstance" useGeneratedKeys="true" keyProperty="id">
+        insert into t_datahub_job_instance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="flowId != null">flow_Id,</if>
+            <if test="nodeId != null">node_Id,</if>
+            <if test="dateId != null">date_Id,</if>
+            <if test="batchId != null">batch_Id,</if>
+            <if test="vars != null">vars,</if>
+            <if test="code != null">code,</if>
+            <if test="sourcedb != null">sourceDb,</if>
+            <if test="sourcetable != null">sourceTable,</if>
+            <if test="sourcecols != null">sourceCols,</if>
+            <if test="targetdb != null">targetDb,</if>
+            <if test="targettable != null">targetTable,</if>
+            <if test="targetcols != null">targetCols,</if>
+            <if test="logUrl != null">log_url,</if>
+            <if test="status != null">status,</if>
+            <if test="starttime != null">startTime,</if>
+            <if test="endtime != null">endTime,</if>
+            <if test="totalCount != null">total_count,</if>
+            <if test="errorCount != null">error_count,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="flowId != null">#{flowId},</if>
+            <if test="nodeId != null">#{nodeId},</if>
+            <if test="dateId != null">#{dateId},</if>
+            <if test="batchId != null">#{batchId},</if>
+            <if test="vars != null">#{vars},</if>
+            <if test="code != null">#{code},</if>
+            <if test="sourcedb != null">#{sourcedb},</if>
+            <if test="sourcetable != null">#{sourcetable},</if>
+            <if test="sourcecols != null">#{sourcecols},</if>
+            <if test="targetdb != null">#{targetdb},</if>
+            <if test="targettable != null">#{targettable},</if>
+            <if test="targetcols != null">#{targetcols},</if>
+            <if test="logUrl != null">#{logUrl},</if>
+            <if test="status != null">#{status},</if>
+            <if test="starttime != null">#{starttime},</if>
+            <if test="endtime != null">#{endtime},</if>
+            <if test="totalCount != null">#{totalCount},</if>
+            <if test="errorCount != null">#{errorCount},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDatahubJobInstance" parameterType="DatahubJobInstance">
+        update t_datahub_job_instance
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="flowId != null">flow_Id = #{flowId},</if>
+            <if test="nodeId != null">node_Id = #{nodeId},</if>
+            <if test="dateId != null">date_Id = #{dateId},</if>
+            <if test="batchId != null">batch_Id = #{batchId},</if>
+            <if test="vars != null">vars = #{vars},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="sourcedb != null">sourceDb = #{sourcedb},</if>
+            <if test="sourcetable != null">sourceTable = #{sourcetable},</if>
+            <if test="sourcecols != null">sourceCols = #{sourcecols},</if>
+            <if test="targetdb != null">targetDb = #{targetdb},</if>
+            <if test="targettable != null">targetTable = #{targettable},</if>
+            <if test="targetcols != null">targetCols = #{targetcols},</if>
+            <if test="logUrl != null">log_url = #{logUrl},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="starttime != null">startTime = #{starttime},</if>
+            <if test="endtime != null">endTime = #{endtime},</if>
+            <if test="totalCount != null">total_count = #{totalCount},</if>
+            <if test="errorCount != null">error_count = #{errorCount},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDatahubJobInstanceById" parameterType="Long">
+        delete from t_datahub_job_instance where id = #{id}
+    </delete>
+
+    <delete id="deleteDatahubJobInstanceByIds" parameterType="String">
+        delete from t_datahub_job_instance where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
